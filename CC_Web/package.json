@@ -1,0 +1,14 @@
+{
+  "name": "cc_web",
+  "version": "0.0.0",
+  "description": "CC_Web",
+  "main": "app.js",
+  "author": {
+    "name": "joemc"
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "stylus": "*"
+  }
+}
