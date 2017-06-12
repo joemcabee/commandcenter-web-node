@@ -1,0 +1,23 @@
+﻿extends layout
+
+block content
+  //.jumbotron
+    //h1 Main
+    //p.lead Express is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.
+    //p
+      //a.btn.btn-primary.btn-large(href='http://expressjs.com/') Learn more &raquo;
+    .row
+        .col-md-4
+  h2 #{title}
+  p Exterior House Controls
+.row.home
+    .col-md-4
+      h2 Garage
+      h3 Front/Side Lights
+      p
+        a.btn.btn-default.frontSideLights Flip &raquo;
+        label.container Lights are: 
+        label.statusLights checking status...
+
+block scripts
+    script(src='/javascripts/site/exterior.js')

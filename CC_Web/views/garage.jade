@@ -1,0 +1,27 @@
+﻿extends layout
+
+block content
+  h2 #{title}
+  p Controls
+    .col-md-4
+      h3 Left Garage Door
+      p
+        a.btn.btn-default.leftDoor Trigger &raquo;
+    .col-md-4
+      h3 Right Garage Door
+      p
+        a.btn.btn-default.rightDoor Trigger &raquo;
+    .col-md-4
+      h3 Lights
+      p
+        a.btn.btn-default.lights Flip &raquo;
+        label.container Lights are: 
+        span.text-muted.statusLights checking status...
+    .col-md-4
+      h3 Webcam
+      p
+        a.btn.btn-default.webcam(target="_blank" href="http://192.168.0.135:8081/") View &raquo;
+    .col-md-4
+      button.blur(style="display:none")
+block scripts
+    script(src='/javascripts/site/garage.js')

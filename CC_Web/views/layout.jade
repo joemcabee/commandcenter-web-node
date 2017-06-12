@@ -3,35 +3,39 @@ html
   head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title #{title} - My Express Application
-    link(rel='stylesheet', type='text/css', href='/stylesheets/bootstrap.min.css')
+    title #{title} - Command Center
+    link(rel='stylesheet', type='text/css', href='/stylesheets/bootstrap.darkly.min.css')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/site.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
-    script(src='/javascripts/modernizr-2.6.2.js')
+    script(src='/javascripts/other/modernizr-2.6.2.js')
+    script(src='/javascripts/site/site.js')
   body
-    .navbar.navbar-inverse.navbar-fixed-top
+    .navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
           button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='/') Application name
+          a.navbar-brand(href='/') Command Center
         .navbar-collapse.collapse
           ul.nav.navbar-nav
             li
               a(href='/') Home
             li
-              a(href='/about') About
+              a(href='/exterior') Exterior
             li
-              a(href='/contact') Contact
+              a(href='/garage') Garage
     .container.body-content
       block content
+      div.fill(style="display:none")
+        div.loader
       hr
       footer
-        p &copy; #{year} - My Express Application
+        p &copy; #{year} - Command Center
 
-    script(src='/javascripts/jquery-1.10.2.js')
-    script(src='/javascripts/bootstrap.js')
-    script(src='/javascripts/respond.js')
+    script(src='/javascripts/other/jquery-1.10.2.js')
+    script(src='/javascripts/other/bootstrap.js')
+    script(src='/javascripts/other/respond.js')
 
     block scripts
