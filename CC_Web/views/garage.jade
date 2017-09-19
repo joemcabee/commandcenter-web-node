@@ -1,27 +1,26 @@
 ﻿extends layout
 
 block content
-  h2 #{title}
-  p Controls
+  h1 #{title}
+  .row
     .col-md-4
-      h3 Left Garage Door
+      h4 Left Garage Door
       p
         a.btn.btn-default.leftDoor Trigger &raquo;
     .col-md-4
-      h3 Right Garage Door
+      h4 Right Garage Door
       p
         a.btn.btn-default.rightDoor Trigger &raquo;
     .col-md-4
-      h3 Lights
+      h4 Webcam
       p
-        a.btn.btn-default.lights Flip &raquo;
-        label.container Lights are: 
-        span.text-muted.statusLights checking status...
-    .col-md-4
-      h3 Webcam
-      p
-        a.btn.btn-default.webcam(target="_blank" href="http://192.168.0.135:8081/") View &raquo;
-    .col-md-4
-      button.blur(style="display:none")
+        a.btn.btn-default.webcamPiGarage View &raquo;
 block scripts
     script(src='/javascripts/site/garage.js')
+    script.
+        leftPin="#{leftPin}";
+        leftAct="#{leftAct}";
+        leftArg="#{leftArg}";
+        rightPin="#{rightPin}";
+        rightAct="#{rightAct}";
+        rightArg="#{rightArg}";

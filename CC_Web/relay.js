@@ -1,12 +1,6 @@
 ﻿var Gpio = require('onoff').Gpio,
-    leftGargageDoor = {
-        "Pin1": new Gpio(12, 'out'),
-        "Pin2": new Gpio(16, 'out')
-    },
-    rightGarageDoor = {
-        "Pin1": new Gpio(20, 'out'),
-        "Pin2": new Gpio(21, 'out')
-    },
+    leftGargageDoor = new Gpio(24, 'out'),
+    rightGarageDoor = new Gpio(23, 'out'),
     interiorGarageLights = new Gpio(12, 'out'),
     exteriorLights = new Gpio(23, 'out');
 
@@ -63,14 +57,8 @@ module.exports = {
             flipValueWithTimeout(device, gpio, 1000);
         }
         else if (device == 'RightGarageDoor') {
-            gpio = rightGarageDoor.Pin1;
-            console.log('Start ' + device + ' - Pin1');
-            flipValueWithTimeout('RightGarageDoor', gpio, 2000);
-            console.log('Done ' + device + ' - Pin1');
-            gpio = rightGarageDoor.Pin2;
-            console.log('Start ' + device + ' - Pin2');
-            flipValueWithTimeout('RightGarageDoor', gpio, 1000);
-            console.log('Done ' + device + ' - Pin2');
+            gpio = rightGarageDoor;
+            flipValueWithTimeout(device, gpio, 1000);
         }
         else if (device == 'InteriorGarageLights') {
             gpio = interiorGarageLights;

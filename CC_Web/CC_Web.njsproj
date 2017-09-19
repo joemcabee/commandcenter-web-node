@@ -33,11 +33,14 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Content Include="public\javascripts\site\garage.js" />
-    <Content Include="public\javascripts\site\exterior.js" />
+    <Content Include="public\javascripts\site\robot.js" />
     <Content Include="public\javascripts\site\site.js" />
+    <Compile Include="database.js" />
+    <Compile Include="database-old.js" />
     <Compile Include="public\javascripts\site\index.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\javascripts\site\thermostat.js" />
     <Compile Include="relay.js" />
     <Compile Include="routes\index.js" />
   </ItemGroup>
@@ -71,7 +74,7 @@
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\garage.jade" />
-    <Content Include="views\exterior.jade" />
+    <Content Include="views\robot.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
   </ItemGroup>

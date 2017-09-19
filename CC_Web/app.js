@@ -2,14 +2,23 @@
  * Module dependencies.
  */
 
-//require('daemon')();
-
 var express = require('express');
-var routes = require('./routes');
 var http = require('http');
 var path = require('path');
-var relay = require('./relay');
-var gpio = require('onoff');
+var fetch = require('node-fetch');
+var routes = require('./routes');
+var database = require('./database');
+var request = require('request');
+
+// create a rolling file logger based on date/time that fires process events
+//var opts = {
+//    errorEventName: 'error',
+//    logDirectory: '/logfiles', // NOTE: folder must exist and be writable...
+//    fileNamePattern: 'roll-<DATE>.log',
+//    dateFormat: 'YYYY.MM.DD'
+//};
+
+//var log = require('simple-node-logger').createRollingFileLogger(opts);
 
 var app = express();
 
@@ -32,39 +41,62 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/exterior', routes.exterior);
+app.get('/robot', routes.robot);
 app.get('/garage', routes.garage);
 
-//Begin REST functions
+app.get('/proxy/:service', function (req, res) {
+    console.log('GET Proxy request for: ' + req.params.service);
+    
+    var service = database.getService(req.params.service);
+    var node = database.getNodeById(service.nodeId);
 
-//GET
-app.get('/relays/:id', function (req, res) {
-    console.log('Relays GET Start: ' + req.params.id);
-    var currentValue = relay.getValue(req.params.id);
-    console.log('Relays GET return value: ' + currentValue);
-    var data = { value: currentValue };
-    res.status(200).send(data);
-    console.log('Relays GET End: ' + req.params.id);
-}); 
+    console.log('Service: ' + service.svcName + ', Node: ' + node.serverName);
 
-//PUT - Change pin value
-app.put('/relays/:id', function (req, res) {
-    console.log('Relays PUT Start: ' + req.params.id + '. Value = ' + req.body.value + '.');
-    relay.changeValue(req.params.id, req.body.value);
-    var newValue = relay.getValue(req.params.id);
-    console.log('Relays PUT return value: ' + newValue);
-    var data = { value: newValue };
-    res.status(200).send(data);
-    console.log('Relays PUT End: ' + req.params.id);
+    //modify the url in any way you want
+    var endpoint = node.protocol + node.ipAddress + node.port + service.api + service.pin + service.act + service.arg;
+    console.log('New proxy url: ' + endpoint);
+
+    request(endpoint, function (error, response, body) {
+        if (error) {
+            res.status(500).send();
+            return console.error('Get failed for ' + req.params.service + ':', error);
+        }
+        
+        console.log('Get Successful for ' + req.params.service);
+    }).pipe(res);
 });
 
-//PING
-app.get('/ping/', function (requ, res) {
-    console.log('Relays ping GET');
-    res.status(204);
-}
+app.post('/proxy/:service', function (req, res) {
+    console.log('POST Proxy request for: ' + req.params.service);
 
-//End REST functions
+    var service = database.getService(req.params.service);
+    var node = database.getNodeById(service.nodeId);
+
+    console.log('Service: ' + service.svcName + ', Node: ' + node.serverName);
+
+    //modify the url in any way you want
+    var endpoint = node.protocol + node.ipAddress + node.port + service.api + service.pin + service.act + service.arg;
+    console.log('New proxy url: ' + endpoint);
+
+    request.post({ url: endpoint }, function callback(err, httpResponse, body) {
+        if (err) {
+            res.status(500).send();
+            return console.error('Post failed for ' + req.params.service + ':', err);
+        }
+
+        res.status(200).send();
+        console.log('Post successful for ' + req.params.service + '.  Server responded with:', body);
+    });
+});
+
+//app.use('/proxy', proxy('192.168.0.145', {
+//    proxyReqPathResolver: function (req) {
+//        console.log(req);
+//        console.log(require('url').parse(req.url));
+//        console.log(require('url').parse(req.url).path);
+//        return require('url').parse(req.url).path;
+//    }
+//}));
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));

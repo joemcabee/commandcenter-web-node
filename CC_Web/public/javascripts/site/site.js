@@ -1,5 +1,5 @@
-﻿var urlRpi1 = 'http://192.168.0.134:3000/',
-    urlRpi2 = 'http://192.168.0.134:3000/';
+﻿var baseUrl = document.location.origin + '/proxy/';
+var baseUrlNoProxy = document.location.origin + '/';
 
 function showLoader() {
     $('.fill').show();

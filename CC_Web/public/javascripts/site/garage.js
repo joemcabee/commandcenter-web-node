@@ -1,16 +1,14 @@
-﻿var serverURL = urlRpi1;
+﻿$(function () {
+    //getStatus('ExteriorLights', '.statusLights');
 
-$(function () {
-    getStatus('ExteriorLights', '.statusLights');
+    $('.webcamPiGarage')[0].href = baseUrlNoProxy + 'pigarage/webcam';
 
     $('.leftDoor').click(function () {
         showLoader();
-        var id = 'LeftGarageDoor';
 
         $.ajax({
-            method: 'PUT',
-            url: serverURL + 'relays/' + id,
-            data: { value: '1' }
+            method: 'POST',
+            url: baseUrl + 'LeftGarageDoor',
         }).complete(function (data, status) {
             hideLoader();
         });
@@ -18,12 +16,10 @@ $(function () {
 
     $('.rightDoor').click(function () {
         showLoader();
-        var id = 'RightGarageDoor';
 
         $.ajax({
-            method: 'PUT',
-            url: serverURL + 'relays/' + id,
-            data: { value: '1' }
+            method: 'POST',
+            url: baseUrl + 'RightGarageDoor',
         }).complete(function (data, status) {
             hideLoader();
         });
@@ -36,24 +32,26 @@ $(function () {
 
         $.ajax({
             method: 'PUT',
-            url: serverURL + 'relays/' + id,
+            url: urlCurrent + 'relays/' + id,
             data: { value: '1' }
         }).complete(function (data, status) {
-            var label = "Unknown";
+            var txt = "Unknown";
+            var cls = 'text-info';
 
             if (data.statusText == "OK") {
                 var val = data.responseJSON.value;
 
                 if (val == 0)
-                    label = "Off";
+                    txt = "Off";
                 else if (val == 1)
-                    label = "On";
+                    txt = "On";
             }
             else {
-                label = "Error";
+                txt = "Error";
+                cls = 'text-warning';
             }
 
-            $('.statusLights').text(label);
+            $('.statusLights').text(txt).removeClass('text-info').addClass(cls);
             hideLoader();
         });
     });
@@ -62,10 +60,10 @@ $(function () {
 function getStatus(id, selector) {
     $.ajax({
         method: 'GET',
-        url: serverURL + 'relays/' + id
+        url: urlCurrent + 'relays/' + id
     }).complete(function (data, status) {
         var label = 'Unknown';
-        var textClass = 'text-success';
+        var textClass = 'text-info';
 
         if (data.statusText == "OK") {
             var val = data.responseJSON.value;
@@ -82,6 +80,6 @@ function getStatus(id, selector) {
             textClass = 'text-warning';
         }
 
-        $(selector).text(label).removeClass('text-info').addClass(textClass);
+        $(selector).text(label).removeClass('text-muted').addClass(textClass);
     });
 }
