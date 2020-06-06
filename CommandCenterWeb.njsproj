@@ -32,7 +32,6 @@
     <Content Include="app.js" />
     <Content Include="database.js" />
     <Content Include="Dockerfile" />
-    <Content Include="firebase.json" />
     <Content Include="public\javascripts\other\bootstrap.min.js" />
     <Content Include="public\javascripts\other\jquery-1.10.2.min.js" />
     <Content Include="public\javascripts\other\modernizr-2.6.2.js" />
