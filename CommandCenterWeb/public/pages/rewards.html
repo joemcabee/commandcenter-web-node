@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Rewards</title>
+    </head>
+    <body>
+        <iframe id="rewardsIframe" style="position:absolute;width:100%;height:100%"></iframe>
+        <script>
+            var index = 0;
+            var urls = [ "https://www.bing.com?q=docker+command+attach&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+build&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+checkpoint&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+commit&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+config&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+container&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+cp&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+create&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+deploy&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+diff&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+events&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+exec&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+export&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+history&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+image&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+images&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+import&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+info&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+inspect&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web"
+                ,"https://www.bing.com?q=docker+command+kill&setmkt=en-US&PC=REWARDS&form=SDKSTW&scope=web" ];
+
+            var intervalId = setInterval(function() {
+                if (urls[index] == null)
+                    index = 0;
+
+                var url = urls[index].replace('&set', '+' + new Date().getTime() + '&set');
+
+                document.getElementById("rewardsIframe").src = url;
+                index++;
+
+                // if (urls.length == index) {
+                //     clearInterval(intervalId);
+                // }
+            }, 5000);
+        </script>
+    </body>
+</html>
